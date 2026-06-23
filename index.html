@@ -1,1 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inclusão de pessoas com deficiência </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1> Midias: podcast e vídeos </h1>
+    </header>
+    <main>
+        <section>
+            <h2> PODCAST, AUDIO, MÚSICA, SOM... </h2>
+            <h3> Audio básico em html </h3>
+             <audio controls>
+                    <source src="Inclusão_vai_muito_além_de_rampas (1).m4a" type="audio/mp3">
+                    Podcast
+                </audio>
+        </section>
+
+
+        <section>
+            <h3> Audio em barra de progresso </h3>
+             <p class="podcast">
+                    <b> PodCast: </b> Importância da acessibilidade e da inclusão em nossa sociedade. <br>
+                    <audio id="audio">
+                        <source src="Inclusão_vai_muito_além_de_rampas (1).m4a" type="audio/mp4">
+                    </audio>
+                    <br>
+                    <button id="btnAudio" onclick="controlarAudio()" class="btn-video">
+                        🎬 Escute nosso Podcast sobre Inclusão
+                    </button>
+                    <br>
+                    <progress id="barra" value="0" max="100"></progress>
+                    <br>
+                    <span id="tempo">0:00 / 0:00</span>
+                </p>
+        </section>
+
+        <section>
+            <h3>Audio em um botao com pausa e barra de progresso</h3>
+            <p>       </p>
+
+
+            <section class="secao-video">
+                <h3>Inserindo diversos tipos de video </h3>
+                <h4> Incorporando video do youtube </h4>
+                <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/wIFKqNyh2Mo"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                </iframe>
+               
+                           
+            </section>
+    </main>
+
+    <script>
+        let audio = document.getElementById("audio");
+        let barra = document.getElementById("barra");
+        let botao = document.getElementById("btnAudio");
+        let tempo = document.getElementById("tempo");
+
+        function controlarAudio() {
+            if (audio.paused) {
+                audio.play();
+                botao.innerHTML = "⏸️ Pausar Podcast";
+            } else {
+                audio.pause();
+                botao.innerHTML = "🎬 PodCast: Inclusão";
+            }
+        }
+
+        audio.addEventListener("timeupdate", function () {
+
+            let porcentagem = (audio.currentTime / audio.duration) * 100;
+            barra.value = porcentagem;
+
+            let atual = Math.floor(audio.currentTime);
+            let total = Math.floor(audio.duration);
+
+            let minAtual = Math.floor(atual / 60);
+            let segAtual = atual % 60;
+
+            let minTotal = Math.floor(total / 60);
+            let segTotal = total % 60;
+
+            tempo.innerHTML =
+                minAtual + ":" + String(segAtual).padStart(2, "0")
+                + " / " +
+                minTotal + ":" + String(segTotal).padStart(2, "0");
+        });
+
+        audio.addEventListener("ended", function () {
+            botao.innerHTML = "🎬 PodCast: Inclusão";
+            barra.value = 0;
+            tempo.innerHTML = "0:00 / 0:00";
+        });
+    </script>
+</body>
+
+</html>
